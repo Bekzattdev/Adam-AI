@@ -14,21 +14,23 @@ const ResetPassPage = () => {
   const [email, setEmail] = useState(""); 
   const [error, setError] = useState(""); 
   const [focusedInput, setFocusedInput] = useState(false); 
+  const [success, setSuccess] = useState(false);
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (email:any) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
 
-  const handleEmailChange = (text: string) => {
+  const handleEmailChange = (text:any) => {
     setEmail(text);
-    if (error) setError(""); 
+    setError("");
+    setSuccess(false);
   };
 
   const handleBlur = () => {
     setFocusedInput(false);
     if (!validateEmail(email)) {
-      setError("Этот адрес выглядит некорректно. Проверьте его еще раз.");
+      setError("This address looks incorrect. Check it again.");
     } else {
       setError("");
     }
@@ -36,9 +38,10 @@ const ResetPassPage = () => {
 
   const handleSubmit = () => {
     if (validateEmail(email)) {
-      router.push("/");
+      setSuccess(true);
+      setError("");
     } else {
-      setError("Этот адрес выглядит некорректно. Проверьте его еще раз.");
+      setError("This address looks incorrect. Check it again.");
     }
   };
 
@@ -46,9 +49,9 @@ const ResetPassPage = () => {
     <SafeAreaView style={scss.checkPass}>
       <View style={scss.content}>
         <View style={scss.text}>
-          <Text style={scss.title}>Забыли пароль?</Text>
+          <Text style={scss.title}>Forgot a password?</Text>
           <Text style={scss.mainText}>
-            Введите e-mail, чтобы восстановить доступ
+            Enter your email to restore access
           </Text>
         </View>
         <View style={scss.box}>
@@ -62,6 +65,8 @@ const ResetPassPage = () => {
               {
                 borderColor: error
                   ? "#FF0000"
+                  : success
+                  ? "#56F447"
                   : focusedInput
                   ? "#56F447"
                   : "#8FA0B6", 
@@ -71,13 +76,14 @@ const ResetPassPage = () => {
             onBlur={handleBlur}
           />
           {error && <Text style={scss.errorText}>{error}</Text>}
+          {success && <Text style={scss.successText}>A recovery link has been sent to your email. Please check your inbox.</Text>}
           <TouchableOpacity style={scss.check_btn} onPress={handleSubmit}>
-            <Text style={scss.check_btn_text}>Отправить</Text>
+            <Text style={scss.check_btn_text}>Send</Text>
           </TouchableOpacity>
-          <Text style={scss.routeText} onPress={() => router.push("/SignIn")}>
-            Вернуться назад
-          </Text>
         </View>
+          <Text style={scss.routeText} onPress={() => router.push("/SignIn")}>
+          Go back
+          </Text>
       </View>
     </SafeAreaView>
   );
@@ -101,7 +107,7 @@ const scss = StyleSheet.create({
     fontSize: 14,
   },
   box: {
-    gap: 8,
+    gap: 12,
   },
   input: {
     width: "100%",
@@ -127,11 +133,15 @@ const scss = StyleSheet.create({
   },
   routeText: {
     textAlign: "center",
-    fontWeight: 700,
-    top: 20,
+    fontWeight: "700",
   },
   errorText: {
     color: "#FF0000",
+    fontSize: 12,
+    bottom: 4,
+  },
+  successText: {
+    color: "#000",
     fontSize: 12,
     bottom: 4,
   },

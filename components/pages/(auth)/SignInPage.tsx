@@ -34,39 +34,47 @@ const SignInPage = () => {
   };
 
   const validatePassword = (password: string) => {
-    return password.length >= 8; 
+    const hasMinLength = password.length >= 8;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    return hasMinLength && hasLetter && hasNumber;
   };
 
   const handleSubmit = () => {
     const newErrors: { [key: string]: string } = {};
 
     if (!email || !validateEmail(email)) {
-      newErrors.email = "Этот адрес выглядит некорректно. Проверьте его еще раз.";
+      newErrors.email = "This address looks incorrect. Check it again.";
     }
     if (!password || !validatePassword(password)) {
-      newErrors.password = "Пароль должен содержать минимум 8 символов.";
+      newErrors.password =
+        "Minimum 8 characters, at least one number and letter.";
     }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
       console.log("Форма отправлена:", { email, password });
-      router.push("/Subscribtion"); 
+      router.push("/Subscribtion");
     }
   };
+
+  const isFormValid = validateEmail(email) && validatePassword(password);
 
   return (
     <SafeAreaView style={scss.signIn}>
       <View style={scss.content}>
-        <Image source={require("@/assets/images/3.png")} style={scss.logo} />
         <View style={scss.head}>
-          <Text style={scss.title}>Log in to your account to get started</Text>
+        <Image source={require("@/assets/images/3.png")} style={scss.logo} />
+        <View style={{gap:8}}>
+          <Text style={scss.title}>Sign in to get started</Text>
           <Text>
-            Еще нет аккаунта?{" "}
+          Don't have an account yet?{" "}
             <Text style={scss.route} onPress={() => router.push("/SignUp")}>
-              Зарегистрируйся
+            Register
             </Text>
           </Text>
+        </View>
         </View>
         <View style={scss.form}>
           <TextInput
@@ -90,6 +98,8 @@ const SignInPage = () => {
           {errors.email && <Text style={scss.errorText}>{errors.email}</Text>}
           <View style={scss.passwordContainer}>
             <TextInput
+              keyboardType="default"
+              textContentType="oneTimeCode"
               secureTextEntry={!showPassword}
               placeholder="Password"
               value={password}
@@ -114,35 +124,46 @@ const SignInPage = () => {
               <Ionicons
                 name={showPassword ? "eye-off" : "eye"}
                 size={22}
-                color="#8FA0B6"
               />
             </TouchableOpacity>
           </View>
           {errors.password && (
             <Text style={scss.errorText}>{errors.password}</Text>
           )}
-          <Text style={{fontWeight:700}} onPress={()=> router.push("/ResetPassword")}>Забыли пароль?</Text>
+          <Text
+            style={{ fontWeight: "700",paddingTop:16,paddingBottom:16 }}
+            onPress={() => router.push("/ResetPassword")}
+          >
+            Forgot password?
+          </Text>
 
-          <TouchableOpacity style={scss.btn_log} onPress={handleSubmit}>
+          <TouchableOpacity
+            style={[
+              scss.btn_log,
+              { backgroundColor: isFormValid ? "#3B64FC" : "#B0B0B0" },
+            ]}
+            onPress={handleSubmit}
+            disabled={!isFormValid}
+          >
             <Text style={scss.btnText_log}>Login</Text>
           </TouchableOpacity>
         </View>
         <View style={scss.main}>
           <View style={scss.long} />
-          <Text style={scss.text_long}>Или</Text>
+          <Text style={scss.text_long}>or</Text>
           <View style={scss.long} />
         </View>
         <View style={scss.box_btn}>
           <TouchableOpacity style={scss.btn}>
             <Ionicons name="logo-apple" size={22} color="#000" />
-            <Text style={scss.btnText}>Продолжить с Apple</Text>
+            <Text style={scss.btnText}>Continue with Apple</Text>
           </TouchableOpacity>
           <TouchableOpacity style={scss.btn}>
             <Image
               source={require("@/assets/icons/search.png")}
               style={scss.google}
             />
-            <Text style={scss.btnText}>Продолжить с Google</Text>
+            <Text style={scss.btnText}>Continue with Google</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -151,17 +172,16 @@ const SignInPage = () => {
 };
 
 const scss = StyleSheet.create({
-  // !Верхний блок
   signIn: {
     padding: 24,
     flexDirection: "column",
   },
   content: {
     flexDirection: "column",
-    gap: 24,
+    gap: 32,
   },
   head: {
-    gap: 8,
+    gap: 12,
   },
   logo: {
     width: 64,
@@ -170,15 +190,13 @@ const scss = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 700,
+    fontWeight: "700",
   },
   route: {
     color: "#3B64FC",
   },
-  // !Средний блок
   form: {
     width: "100%",
-    gap: 8,
   },
   input: {
     width: "100%",
@@ -191,11 +209,12 @@ const scss = StyleSheet.create({
   },
   passwordContainer: {
     position: "relative",
+    paddingTop:8
   },
   eyeIcon: {
     position: "absolute",
     right: 20,
-    top: 16,
+    top: 25,
   },
   btn_log: {
     borderRadius: 20,
@@ -207,7 +226,7 @@ const scss = StyleSheet.create({
   },
   btnText_log: {
     textAlign: "center",
-    fontWeight: 700,
+    fontWeight: "700",
     color: "#fff",
   },
   errorText: {
@@ -215,7 +234,6 @@ const scss = StyleSheet.create({
     fontSize: 12,
     bottom: 4,
   },
-  // !Линия
   main: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -230,7 +248,6 @@ const scss = StyleSheet.create({
     fontSize: 14,
     color: "#7A808C52",
   },
-  // !нижний блок
   box_btn: {
     gap: 12,
   },
@@ -247,7 +264,7 @@ const scss = StyleSheet.create({
   },
   btnText: {
     textAlign: "center",
-    fontWeight: 700,
+    fontWeight: "700",
   },
   google: {
     width: 16,

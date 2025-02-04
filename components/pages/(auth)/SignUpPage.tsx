@@ -1,4 +1,4 @@
-import {  Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -21,7 +21,7 @@ const SignUpPage = () => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
+  const [checked, setChecked] = useState(false);
   const handleFocus = (inputName: string) => {
     setFocusedInput(inputName);
     setErrors((prev) => ({ ...prev, [inputName]: "" })); // Очистка ошибки при фокусе
@@ -50,13 +50,13 @@ const SignUpPage = () => {
   const handleSubmit = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!age) newErrors.age = "Поле обязательно для заполнения";
-    if (!selectedGender) newErrors.gender = "Выберите пол";
+    if (!age) newErrors.age = "This field is required";
+    if (!selectedGender) newErrors.gender = "Select gender";
     if (!email || !validateEmail(email))
-      newErrors.email =
-        "Этот адрес выглядит некорректно. Проверьте его еще раз.";
+      newErrors.email = "This address looks incorrect. Check it again.";
     if (!password || !validatePassword(password))
-      newErrors.password = "Минимум 8 символов, хотя бы одна цифра и буква.";
+      newErrors.password =
+        "Minimum 8 characters, at least one number and letter";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -67,7 +67,7 @@ const SignUpPage = () => {
         password,
         selectedGender,
       });
-      router.push("/CheckPassword"); // Переход на страницу успеха
+      router.push("/CheckPassword");
     }
   };
   const hasErrors = Object.keys(errors).length > 0;
@@ -76,22 +76,25 @@ const SignUpPage = () => {
     <SafeAreaView style={scss.signUp}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={scss.content}>
-          <Image source={require("@/assets/images/3.png")} style={scss.logo} />
           <View style={scss.head}>
-            <Text style={scss.title}>
-              Создайте аккаунт, чтобы начать работу
-            </Text>
-            <Text>
-              Уже есть аккаунт?{" "}
-              <Text style={scss.route} onPress={() => router.push("/SignIn")}>
-                Войдите
+            <Image
+              source={require("@/assets/images/3.png")}
+              style={scss.logo}
+            />
+            <View style={{ gap: 8 }}>
+              <Text style={scss.title}>Create an account to get started</Text>
+              <Text>
+                Already have an account?{" "}
+                <Text style={scss.route} onPress={() => router.push("/SignIn")}>
+                  Sign in
+                </Text>
               </Text>
-            </Text>
+            </View>
           </View>
           <View style={[scss.form, hasErrors && scss.formWithErrors]}>
             <TextInput
               keyboardType="numeric"
-              placeholder="Возраст"
+              placeholder="Age"
               value={age}
               onChangeText={setAge}
               style={[
@@ -109,7 +112,7 @@ const SignUpPage = () => {
             />
             {errors.age && <Text style={scss.errorText}>{errors.age}</Text>}
             <View style={scss.gender}>
-              {["Не указывать", "Муж", "Жен"].map((gender) => (
+              {["Other", "Male", "Female"].map((gender) => (
                 <TouchableOpacity
                   key={gender}
                   style={[
@@ -154,7 +157,7 @@ const SignUpPage = () => {
             <View style={scss.passwordContainer}>
               <TextInput
                 secureTextEntry={!showPassword}
-                placeholder="Создать пароль"
+                placeholder="Create password"
                 value={password}
                 onChangeText={setPassword}
                 style={[
@@ -182,25 +185,37 @@ const SignUpPage = () => {
             )}
 
             <TouchableOpacity style={scss.btn_reg} onPress={handleSubmit}>
-              <Text style={scss.btnText_reg}>Создать аккаунт</Text>
+              <Text style={scss.btnText_reg}>Create an account</Text>
             </TouchableOpacity>
+            <View style={scss.sub}>
+              <TouchableOpacity
+                style={[scss.oval, checked && scss.checked]}
+                onPress={() => setChecked(!checked)}
+              />
+              <Text style={{ fontSize: 12 }}>
+                I confirm that I have read, consent and agree to {"\n"}{" "}
+                Adam.ai's{" "}
+                <Text style={{ fontWeight: "bold" }}>Terms of Use</Text> and{" "}
+                <Text style={{ fontWeight: "bold" }}> Privacy Policy</Text>
+              </Text>
+            </View>
           </View>
           <View style={scss.main}>
             <View style={scss.long} />
-            <Text style={scss.text_long}>Или</Text>
+            <Text style={scss.text_long}>or</Text>
             <View style={scss.long} />
           </View>
           <View style={scss.box_btn}>
             <TouchableOpacity style={scss.btn}>
               <Ionicons name="logo-apple" size={22} />
-              <Text style={scss.btnText}>Продолжить с Apple</Text>
+              <Text style={scss.btnText}>Continue with Apple</Text>
             </TouchableOpacity>
             <TouchableOpacity style={scss.btn}>
               <Image
                 source={require("@/assets/icons/search.png")}
                 style={scss.google}
               />
-              <Text style={scss.btnText}>Продолжить с Google</Text>
+              <Text style={scss.btnText}>Continue with Google</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -217,10 +232,10 @@ const scss = StyleSheet.create({
   },
   content: {
     flexDirection: "column",
-    gap: 24,
+    gap: 32,
   },
   head: {
-    gap: 8,
+    gap: 12,
   },
   logo: {
     width: 64,
@@ -237,10 +252,10 @@ const scss = StyleSheet.create({
   // !Средний блок
   form: {
     width: "100%",
-    gap: 12,
+    gap: 8,
   },
   formWithErrors: {
-    gap: 8,
+    gap: 6,
   },
   gender: {
     flexDirection: "row",
@@ -260,7 +275,7 @@ const scss = StyleSheet.create({
   },
   text_gender: {
     fontSize: 12,
-    color: "#8FA0B6",
+    color: "#787878",
   },
   input: {
     width: "100%",
@@ -296,6 +311,20 @@ const scss = StyleSheet.create({
     color: "#CF3838",
     fontSize: 12,
     bottom: 4,
+  },
+  sub: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  oval: {
+    borderWidth: 1,
+    borderRadius: 50,
+    width: 15,
+    height: 15,
+    borderColor: "black",
+  },
+  checked: {
+    backgroundColor: "black",
   },
   // !Линия
   main: {

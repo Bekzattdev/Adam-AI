@@ -15,7 +15,6 @@ const CheckPassPage = () => {
   const [error, setError] = useState("");
   const [focusedInput, setFocusedInput] = useState(false);
 
-  // Проверка кода
   const checkCode = (code: string) => {
     return /^\d{6}$/.test(code);
   };
@@ -28,7 +27,7 @@ const CheckPassPage = () => {
   const handleBlur = () => {
     setFocusedInput(false);
     if (!checkCode(code)) {
-      setError("Код должен состоять из 6 цифр.");
+      setError("The code must consist of 6 digits.");
     } else {
       setError("");
     }
@@ -36,9 +35,9 @@ const CheckPassPage = () => {
 
   const handleConfirm = () => {
     if (checkCode(code)) {
-        router.push("/Subscribtion"); 
+      router.push("/Subscribtion");
     } else {
-      setError("Код должен состоять из 6 цифр.");
+      setError("The code must consist of 6 digits.");
     }
   };
 
@@ -46,16 +45,16 @@ const CheckPassPage = () => {
     <SafeAreaView style={scss.checkPass}>
       <View style={scss.content}>
         <View style={scss.text}>
-          <Text style={scss.headerTitle}>Введите код безопасности</Text>
+          <Text style={scss.headerTitle}>Enter security code</Text>
           <Text style={scss.headerSubtitle}>
-            Введите 6-значный код, который отправлен на почту{" "}
+            Enter the 6-digit code sent to{" "}
             <Text style={scss.minText}>e******@gmail.com</Text>
           </Text>
         </View>
         <View style={scss.box}>
           <TextInput
             keyboardType="numeric"
-            placeholder="Введите код из письма"
+            placeholder="Enter the code from the letter"
             value={code}
             onChangeText={handleCodeChange}
             style={[
@@ -74,7 +73,7 @@ const CheckPassPage = () => {
           />
           {error && <Text style={scss.errorText}>{error}</Text>}
           <TouchableOpacity style={scss.check_btn} onPress={handleConfirm}>
-            <Text style={scss.check_btn_text}>Подтвердить</Text>
+            <Text style={scss.check_btn_text}>Confirm</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -104,7 +103,7 @@ const scss = StyleSheet.create({
     color: "#000",
   },
   box: {
-    gap: 8,
+    gap: 12,
   },
   input: {
     width: "100%",

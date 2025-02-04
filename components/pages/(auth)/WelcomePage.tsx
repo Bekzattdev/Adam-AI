@@ -12,20 +12,21 @@ import { useRouter } from "expo-router";
 
 const WelcomePage = () => {
   const router = useRouter();
+  
   return (
     <SafeAreaView style={scss.welcome}>
-      <Text style={scss.text}>Я ADAM AI - Ваш личный Врач и Помощник</Text>
+      <Text style={scss.text}>I am ADAM AI — Your personal Health & Beauty Assistant and Friend.</Text>
       <View style={scss.main_buttons}>
         <TouchableOpacity style={scss.btn}>
           <MaterialIcons name="apple" size={25} color="#000" />
-          <Text style={scss.btnText} onPress={()=> router.push('/Main')}>Продолжить с Apple</Text>
+          <Text style={scss.btnText} onPress={()=> router.push('/Main')}>Continue with Apple</Text>
         </TouchableOpacity>
         <TouchableOpacity style={scss.btn}>
           <Image
             source={require("@/assets/icons/search.png")}
             style={scss.google}
           />
-          <Text style={scss.btnText}>Продолжить с Google</Text>
+          <Text style={scss.btnText}>Continue with Google</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/SignUp")}
@@ -33,11 +34,11 @@ const WelcomePage = () => {
         >
           <MaterialIcons name="mail" size={22} color="#000" />
           <Text style={scss.btnText}>
-            Зарегистрироваться{"\n"}с электронной почтой
+          Register with E-mail
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=> router.push("/SignIn")} style={scss.btn}>
-          <Text style={scss.btnText}>Войти</Text>
+          <Text style={scss.btnText}>Login</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -56,6 +57,8 @@ const scss = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     paddingTop: 200,
+    paddingLeft:30,
+    paddingRight:30
   },
   main_buttons: {
     position: "absolute",

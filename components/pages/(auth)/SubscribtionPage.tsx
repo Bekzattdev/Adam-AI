@@ -9,53 +9,54 @@ import React, { useState } from "react";
 import { useRouter } from "expo-router";
 
 const SubscriptionPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [selectedTarif, setSelectedTarif] = useState(null);
 
   const tarifs = [
-    { month: 6, price: 38.9, weeklyPrice: 1.5 },
-    { month: 3, price: 23.9, weeklyPrice: 1.84 },
-    { month: 1, price: 9.99, weeklyPrice: 2.31 },
+    { month: 3, price: 23.9, weeklyPrice: 1.84,id:0 },
+    { month: 1, price: 9.99, weeklyPrice: 2.31, id:1 },
   ];
 
-  const handleTarifPress = (id:any) => {
+  const handleTarifPress = (id: any) => {
     setSelectedTarif(id);
   };
 
   return (
     <SafeAreaView style={scss.subscribe}>
       <View style={scss.content}>
-        <Text style={scss.headerTitle}>Открой полный доступ к приложению!</Text>
+        <Text style={scss.headerTitle}>Discover ADAM AI’s Full Potential</Text>
         <Text style={scss.headerSubtitle}>
-          Персональные рекомендации. Умный анализ. Видимый результат.
+          Personalized recommendations. Intelligent analysis. Measurable
+          progress.
         </Text>
       </View>
       <View style={scss.box}>
-        {tarifs.map((tarif, index) => (
+        {tarifs.map((tarif) => (
           <TouchableOpacity
-            key={index}
+          
+            key={tarif.id}
             style={[
               scss.tarifBtn,
-              selectedTarif === index && {
+              selectedTarif === tarif.id && {
                 borderColor: "#312CBE",
                 backgroundColor: "#F0F0FF",
               },
             ]}
-            onPress={() => handleTarifPress(index)}
+            onPress={() => handleTarifPress(tarif.id)}
           >
             <Text
               style={[
                 scss.tarifDuration,
-                selectedTarif === index && { color: "#312CBE" },
+                selectedTarif === tarif.id && { color: "#312CBE" },
               ]}
             >
-              {tarif.month} месяцев
+              {tarif.month} months
             </Text>
             <View>
               <Text
                 style={[
                   scss.tarifPrice,
-                  selectedTarif === index && { color: "#312CBE" },
+                  selectedTarif === tarif.id  && { color: "#312CBE" },
                 ]}
               >
                 ${tarif.price}
@@ -63,53 +64,56 @@ const SubscriptionPage = () => {
               <Text
                 style={[
                   scss.tarifWeeklyPrice,
-                  selectedTarif === index && { color: "#312CBE" },
+                  selectedTarif === tarif.id && { color: "#312CBE" },
                 ]}
               >
-                ${tarif.weeklyPrice} в неделю
+                ${tarif.weeklyPrice} per week
               </Text>
             </View>
           </TouchableOpacity>
         ))}
         <TouchableOpacity
-          id='12'
+          id="3"
           style={[
             scss.tarifBtn,
-            selectedTarif === 0 && {
+            selectedTarif === 3 && {
               borderColor: "#312CBE",
               backgroundColor: "#F0F0FF",
             },
           ]}
-          onPress={() => handleTarifPress(0)}
+          onPress={() => handleTarifPress(3)}
         >
           <Text
             style={[
               { fontWeight: 700, fontSize: 16 },
-              selectedTarif === '12' && { color: "#312CBE" },
+              selectedTarif === "12" && { color: "#312CBE" },
             ]}
           >
-            24 часа бесплатно
+            24 hours free
           </Text>
           <Text
             style={[
               { fontWeight: 700, fontSize: 16 },
-              selectedTarif === '12' && { color: "#312CBE" },
+              selectedTarif === "12" && { color: "#312CBE" },
             ]}
           >
             $0.00
           </Text>
         </TouchableOpacity>
+        <Text style={{ fontWeight: "700" }} onPress={() => router.push("/MoreDatails")}>
+          More details
+        </Text>
       </View>
       <View style={scss.foot}>
-
-      <TouchableOpacity style={scss.footBtn}>
-        <Text style={scss.btn_text} onPress={() => router.push('/Main') }>
-          Попробовать бесплатно
+        <TouchableOpacity style={scss.footBtn}>
+          <Text style={scss.btn_text} onPress={() => router.push("/Main")}>
+            Continue
+          </Text>
+        </TouchableOpacity>
+        <Text style={scss.footText}>
+          The subscription is renewed automatically. You can cancel {"\n"} at
+          any time.
         </Text>
-      </TouchableOpacity>
-      <Text style={scss.footText}>
-        Подписка продлевается автоматически. Отменить {"\n"}можно в любой момент.
-      </Text>
       </View>
     </SafeAreaView>
   );
@@ -136,7 +140,7 @@ const scss = StyleSheet.create({
   tarifBtn: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "#b1b1b1",
     height: 76,
     padding: 20,
     borderRadius: 24,
@@ -158,7 +162,7 @@ const scss = StyleSheet.create({
     color: "#666",
   },
   foot: {
-gap:20
+    gap: 20,
   },
   footBtn: {
     width: "100%",

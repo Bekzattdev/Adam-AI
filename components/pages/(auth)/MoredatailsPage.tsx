@@ -3,12 +3,13 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const MoreDetailsPage = () => {
+  // it's my life
   return (
     <SafeAreaView style={scss.details}>
       <View style={scss.content}>
         <View style={{ gap: 8 }}>
           <Text style={scss.mainTitle}>More Details</Text>
-          
+
           <Text style={scss.subtitle}>
             Personalized recommendations. Intelligent analysis. Measurable
             progress.
@@ -76,7 +77,7 @@ const scss = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#FFF",
-    paddingBottom:10
+    paddingBottom: 10,
   },
   proDescription: {
     fontSize: 14,

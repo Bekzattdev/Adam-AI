@@ -1,13 +1,3 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-const CheckPassword = () => {
-  return (
-    <SafeAreaView>
-      <Text>CheckPassword</Text>
-    </SafeAreaView>
-  );
-};
-
+import CheckPassPage from "@/components/pages/(auth)/CheckPassPage";
+const CheckPassword = () => <CheckPassPage/>
 export default CheckPassword;

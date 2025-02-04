@@ -1,17 +1,24 @@
-
-import { Stack, Tabs } from "expo-router";
-import { Image, View } from "react-native";
-
+import { Stack } from "expo-router";
 
 const _layout = () => {
   return (
-    <Stack>
-        <Stack.Screen name="Welcome" options={{headerShown: false}}/>
-        <Stack.Screen name="SignUp" options={{headerShown: true}}/>
-        <Stack.Screen name="CheckPassword" options={{headerShown: true}}/>
-        <Stack.Screen name="SignIn" options={{headerShown: true}}/>
-        <Stack.Screen name="RessetPassword" options={{headerShown: true}}/>
-        <Stack.Screen name="Subscription" options={{headerShown: true}}/>
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerTitle: "",
+        headerShadowVisible: false, 
+        contentStyle:{
+          backgroundColor:'#fff'
+        }
+      }}
+    >
+      <Stack.Screen name="Welcome" options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" />
+      <Stack.Screen name="CheckPassword" />
+      <Stack.Screen name="SignIn" />
+      <Stack.Screen name="ResetPassword" />
+      <Stack.Screen name="Subscribtion" />
+      <Stack.Screen name="MoreDatails" />
     </Stack>
   );
 };

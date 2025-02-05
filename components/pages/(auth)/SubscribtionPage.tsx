@@ -24,6 +24,7 @@ const SubscriptionPage = () => {
   return (
     <SafeAreaView style={scss.subscribe}>
       <View style={scss.content}>
+      <View style={scss.text}>
         <Text style={scss.headerTitle}>Discover ADAM AI’s Full Potential</Text>
         <Text style={scss.headerSubtitle}>
           Personalized recommendations. Intelligent analysis. Measurable
@@ -115,16 +116,19 @@ const SubscriptionPage = () => {
           any time.
         </Text>
       </View>
+      </View>
     </SafeAreaView>
   );
 };
 
 const scss = StyleSheet.create({
   subscribe: {
-    padding: 24,
-    gap: 40,
   },
   content: {
+    gap: 40,
+    padding: 24,
+  },
+  text:{
     gap: 8,
   },
   headerTitle: {

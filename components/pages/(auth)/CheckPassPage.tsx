@@ -55,6 +55,7 @@ const CheckPassPage = () => {
           <TextInput
             keyboardType="numeric"
             placeholder="Enter the code from the letter"
+            placeholderTextColor="#6b6b6b" 
             value={code}
             onChangeText={handleCodeChange}
             style={[
@@ -83,9 +84,9 @@ const CheckPassPage = () => {
 
 const scss = StyleSheet.create({
   checkPass: {
-    padding: 24,
   },
   content: {
+    padding: 24,
     gap: 32,
   },
   text: {

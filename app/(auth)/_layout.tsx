@@ -1,15 +1,30 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
+import { useRouter } from "expo-router";
+import { View, TouchableOpacity } from "react-native";
 
 const _layout = () => {
+  const router = useRouter();
+
   return (
     <Stack
       screenOptions={{
         headerShown: true,
         headerTitle: "",
-        headerShadowVisible: false, 
-        contentStyle:{
-          backgroundColor:'#fff'
-        }
+        headerShadowVisible: false,
+        headerBackVisible: false,
+        headerLeft: ({ canGoBack }) =>
+          canGoBack ? (
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={{ paddingLeft: 10 }}
+            >
+              <Ionicons name="arrow-back" size={24} />
+            </TouchableOpacity>
+          ) : null,
+        contentStyle: {
+          backgroundColor: "#fff",
+        },
       }}
     >
       <Stack.Screen name="Welcome" options={{ headerShown: false }} />

@@ -60,6 +60,7 @@ const ResetPassPage = () => {
             placeholder="example@email.com"
             value={email}
             onChangeText={handleEmailChange}
+            placeholderTextColor="#6b6b6b" 
             style={[
               scss.input,
               {
@@ -91,9 +92,9 @@ const ResetPassPage = () => {
 
 const scss = StyleSheet.create({
   checkPass: {
-    padding: 24,
   },
   content: {
+    padding: 24,
     gap: 32,
   },
   text: {

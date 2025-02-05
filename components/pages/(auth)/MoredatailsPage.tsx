@@ -54,9 +54,9 @@ const MoreDetailsPage = () => {
 
 const scss = StyleSheet.create({
   details: {
-    padding: 24,
   },
   content: {
+    padding: 24,
     gap: 32,
   },
   mainTitle: {

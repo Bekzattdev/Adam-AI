@@ -97,6 +97,7 @@ const SignUpPage = () => {
               placeholder="Age"
               value={age}
               onChangeText={setAge}
+              placeholderTextColor="#6b6b6b" 
               style={[
                 scss.input,
                 {
@@ -140,6 +141,7 @@ const SignUpPage = () => {
               placeholder="example@email.com"
               value={email}
               onChangeText={setEmail}
+              placeholderTextColor="#6b6b6b" 
               style={[
                 scss.input,
                 {
@@ -158,6 +160,7 @@ const SignUpPage = () => {
               <TextInput
                 secureTextEntry={!showPassword}
                 placeholder="Create password"
+                placeholderTextColor="#6b6b6b" 
                 value={password}
                 onChangeText={setPassword}
                 style={[
@@ -227,10 +230,10 @@ const SignUpPage = () => {
 const scss = StyleSheet.create({
   // !Верхний блок
   signUp: {
-    padding: 24,
     flexDirection: "column",
   },
   content: {
+    padding: 24,
     flexDirection: "column",
     gap: 32,
   },
@@ -275,7 +278,7 @@ const scss = StyleSheet.create({
   },
   text_gender: {
     fontSize: 12,
-    color: "#787878",
+    color: "#6b6b6b",
   },
   input: {
     width: "100%",

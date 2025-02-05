@@ -82,6 +82,7 @@ const SignInPage = () => {
             placeholder="example@email.com"
             value={email}
             onChangeText={setEmail}
+            placeholderTextColor="#6b6b6b" 
             style={[
               scss.input,
               {
@@ -104,6 +105,7 @@ const SignInPage = () => {
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
+              placeholderTextColor="#6b6b6b" 
               style={[
                 scss.input,
                 {
@@ -173,10 +175,10 @@ const SignInPage = () => {
 
 const scss = StyleSheet.create({
   signIn: {
-    padding: 24,
     flexDirection: "column",
   },
   content: {
+    padding: 24,
     flexDirection: "column",
     gap: 32,
   },

@@ -110,6 +110,7 @@ const MainPage = () => {
             placeholder="Отправить сообщение..."
             value={userInput}
             onChangeText={setUserInput}
+            placeholderTextColor="#6b6b6b" 
           />
           <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
             {loading ? (
